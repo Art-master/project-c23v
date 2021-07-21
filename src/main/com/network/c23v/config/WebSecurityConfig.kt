@@ -1,44 +1,56 @@
 package com.network.c23v.config
 
+import com.network.c23v.actuator.FeaturesEndpoint
+import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
+import org.springframework.security.config.web.server.ServerHttpSecurity
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.crypto.factory.PasswordEncoderFactories
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.server.SecurityWebFilterChain
 
 
-@Configuration
-@EnableWebSecurity
-class WebSecurityConfig : WebSecurityConfigurerAdapter() {
+@EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
+class WebSecurityConfig {
     @Throws(Exception::class)
-    override fun configure(http: HttpSecurity) {
-        http
-            .authorizeRequests()
-            .antMatchers("/", "/home").permitAll()
-            .anyRequest().authenticated()
+    @Bean
+    open fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain? {
+        return http.authorizeExchange()
+            .pathMatchers("/admin")
+            .hasAuthority("ROLE_ADMIN")
+            .matchers(EndpointRequest.to(FeaturesEndpoint::class.java))
+            .permitAll()
+            .anyExchange()
+            .authenticated()
             .and()
             .formLogin()
-            .loginPage("/login")
-            .permitAll()
             .and()
-            .logout()
-            .permitAll()
+            .csrf()
+            .disable()
+            .build()
     }
 
     @Bean
-    public override fun userDetailsService(): UserDetailsService? {
-        val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
-
-        val user = User.builder()
-            .passwordEncoder{ e -> encoder.encode(e)}
-            .username("user")
-            .password("password")
+    open fun userDetailsService(): MapReactiveUserDetailsService? {
+        val user = User
+            .withUsername("user")
+            .password(passwordEncoder().encode("password"))
             .roles("USER")
             .build()
-        return InMemoryUserDetailsManager(user)
+        val admin = User
+            .withUsername("admin")
+            .password(passwordEncoder().encode("password"))
+            .roles("ADMIN")
+            .build()
+        return MapReactiveUserDetailsService(user, admin)
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
     }
 }
