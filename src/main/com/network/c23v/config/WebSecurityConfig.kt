@@ -38,12 +38,12 @@ class WebSecurityConfig {
     open fun userDetailsService(): MapReactiveUserDetailsService? {
         val user = User
             .withUsername("user")
-            .password(passwordEncoder().encode("password"))
+            .password(passwordEncoder().encode("123456"))
             .roles("USER")
             .build()
         val admin = User
             .withUsername("admin")
-            .password(passwordEncoder().encode("password"))
+            .password(passwordEncoder().encode("123456"))
             .roles("ADMIN")
             .build()
         return MapReactiveUserDetailsService(user, admin)

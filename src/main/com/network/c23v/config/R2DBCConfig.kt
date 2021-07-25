@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
+import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.r2dbc.connection.R2dbcTransactionManager
 import org.springframework.r2dbc.connection.init.CompositeDatabasePopulator
@@ -17,25 +18,25 @@ import org.springframework.transaction.ReactiveTransactionManager
 
 
 @Configuration
-@EnableR2dbcRepositories
+@EnableR2dbcRepositories("com.network.c23v.repository")
 class R2DBCConfig(
-/*    @Value("\${spring.data.postgres.host}") private val host: String,
-    @Value("\${spring.data.postgres.port}") private val port: String,
-    @Value("\${spring.data.postgres.database}") private val database: String,
-    @Value("\${spring.data.postgres.username}") private val username: String,
-    @Value("\${spring.data.postgres.password}") private val password: String*/
-) {
+    @Value("\${server.address}") private val host: String,
+    @Value("\${spring.r2dbc.name}") private val database: String,
+    @Value("\${spring.r2dbc.username}") private val username: String,
+    @Value("\${spring.r2dbc.password}") private val password: String,
+    @Value("\${spring.r2dbc.pool.max-size}") private val maxPoolSize: String
+) : AbstractR2dbcConfiguration() {
+
     @Bean
-    fun connectionFactory(): ConnectionFactory {
+    override fun connectionFactory(): ConnectionFactory {
         return ConnectionFactories.get(
             builder()
                 .option(DRIVER, "postgresql")
-                .option(HOST, "localhost")
-                .option(PORT, 5432)
-                .option(USER, "postgres")
-                .option(PASSWORD, "admin")
-                .option(DATABASE, "c23v")
-                .option(MAX_SIZE, 40)
+                .option(HOST, host)
+                .option(USER, username)
+                .option(PASSWORD, password)
+                .option(DATABASE, database)
+                .option(MAX_SIZE, maxPoolSize.toInt())
                 .build()
         )
     }
@@ -50,7 +51,7 @@ class R2DBCConfig(
         val initializer = ConnectionFactoryInitializer()
         initializer.setConnectionFactory(connectionFactory)
         val populator = CompositeDatabasePopulator()
-        //populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("schema.sql")))
+        populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("schema.sql")))
         //populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("data.sql")))
         initializer.setDatabasePopulator(populator)
         return initializer
