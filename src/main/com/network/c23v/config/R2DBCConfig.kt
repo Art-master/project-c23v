@@ -25,9 +25,9 @@ class R2DBCConfig(
     @Value("\${spring.r2dbc.username}") private val username: String,
     @Value("\${spring.r2dbc.password}") private val password: String,
     @Value("\${spring.r2dbc.pool.max-size}") private val maxPoolSize: String
-) : AbstractR2dbcConfiguration() {
+)  {
 
-    @Bean
+/*    @Bean
     override fun connectionFactory(): ConnectionFactory {
         return ConnectionFactories.get(
             builder()
@@ -55,5 +55,5 @@ class R2DBCConfig(
         //populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("data.sql")))
         initializer.setDatabasePopulator(populator)
         return initializer
-    }
+    }*/
 }

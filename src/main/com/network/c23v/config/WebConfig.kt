@@ -14,14 +14,17 @@ import reactor.netty.http.server.HttpServer
 @EnableWebFlux
 class WebConfig {
 
-    @Value("\${server.port:8080}")
-    private val port = 8080
+    @Value("\${server.port}")
+    private val port = 8084
+
+    @Value("\${server.address}")
+    private val host = "localhost"
 
     @Bean
     fun disposableServer(context: ApplicationContext): DisposableServer {
         val handler = WebHttpHandlerBuilder.applicationContext(context).build()
         val adapter = ReactorHttpHandlerAdapter(handler)
-        val httpServer = HttpServer.create().host("localhost").port(port)
+        val httpServer = HttpServer.create().host(host).port(port)
         return httpServer.handle(adapter).bindNow()
     }
 }
