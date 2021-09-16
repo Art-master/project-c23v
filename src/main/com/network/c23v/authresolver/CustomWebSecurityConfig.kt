@@ -63,7 +63,7 @@ class CustomWebSecurityConfig {
                         )
                     )
                 )
-                .map { b: String? ->
+                .map {
                     UsernamePasswordAuthenticationToken(
                         authentication.principal,
                         authentication.credentials, listOf(SimpleGrantedAuthority("ROLE_USER"))
@@ -84,7 +84,7 @@ class CustomWebSecurityConfig {
                         )
                     )
                 )
-                .map { b: String? ->
+                .map {
                     UsernamePasswordAuthenticationToken(
                         authentication.principal,
                         authentication.credentials, listOf(SimpleGrantedAuthority("ROLE_USER"))

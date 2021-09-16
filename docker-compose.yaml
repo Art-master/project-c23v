@@ -1,11 +1,12 @@
-version: '3.1'
+version: '3.6'
 
 #volumes:
 #  pg_project:
 
 services:
-  pg_db:
+  postgres:
     image: postgres:13
+    container_name: postgres
 #    restart: always
     ports:
       - 5432:5432
@@ -22,10 +23,10 @@ services:
     ports:
       - 8084:8084
     depends_on:
-      - pg_db
+      - postgres
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
       - POSTGRES_DB=c23v
-      - POSTGRES_ADDR=pg_db
+      - POSTGRES_ADDR=postgres
       - POSTGRES_PORT=5432

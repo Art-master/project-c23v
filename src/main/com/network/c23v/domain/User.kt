@@ -1,13 +1,13 @@
 package com.network.c23v.domain
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Column
-import org.springframework.data.relational.core.mapping.Table
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
-@Table("user")
-class User {
+@Entity
+data class User(
 
     @Id
-    @Column("id")
+    @GeneratedValue
     var id: Long = 0
-}
+)
