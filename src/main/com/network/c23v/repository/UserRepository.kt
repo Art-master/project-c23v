@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono
 @Repository
 interface UserRepository : ReactiveCrudRepository<User, Long> {
 
-/*    @Query("SELECT * FROM c23v.public.user WHERE id=$1 LIMIT 1")
-    fun findOne(id: Long): Mono<User>*/
+    @Query("SELECT * FROM c23v.public.user WHERE id=$1 LIMIT 1")
+    fun findOne(id: Long): Mono<User>
 
 }

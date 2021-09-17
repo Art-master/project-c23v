@@ -1,10 +1,12 @@
 package com.network.c23v.domain
 
+import org.springframework.data.relational.core.mapping.Table
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
+@Table("user")
 data class User(
 
     @Id
