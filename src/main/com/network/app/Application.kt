@@ -1,4 +1,4 @@
-package com.network.c23v;
+package com.network.app;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.annotation.*
@@ -10,9 +10,9 @@ import reactor.netty.DisposableServer
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = ["classpath:application.properties"], ignoreResourceNotFound = true)
-@EnableR2dbcRepositories("com.network.c23v.repository")
-@EntityScan("com.network.c23v.domain")
-@ComponentScan("com.network.c23v")
+@EnableR2dbcRepositories("com.network.app.repository")
+@EntityScan("com.network.app.domain")
+@ComponentScan("com.network.app")
 class Application {
 
 	companion object {

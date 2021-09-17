@@ -1,4 +1,4 @@
-package com.network.c23v.actuator
+package com.network.app.actuator
 
 import org.springframework.boot.actuate.endpoint.annotation.*
 import org.springframework.stereotype.Component

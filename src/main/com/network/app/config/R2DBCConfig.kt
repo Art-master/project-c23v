@@ -1,4 +1,4 @@
-package com.network.c23v.config
+package com.network.app.config
 
 import io.r2dbc.pool.PoolingConnectionFactoryProvider.MAX_SIZE
 import io.r2dbc.spi.ConnectionFactories
@@ -18,7 +18,7 @@ import org.springframework.transaction.ReactiveTransactionManager
 
 
 @Configuration
-@EnableR2dbcRepositories("com.network.c23v.repository")
+@EnableR2dbcRepositories("com.network.app.repository")
 class R2DBCConfig(
     @Value("\${postgres.host}") private val host: String,
     @Value("\${spring.r2dbc.name}") private val database: String,

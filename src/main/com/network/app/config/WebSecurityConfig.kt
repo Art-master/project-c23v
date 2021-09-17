@@ -1,6 +1,6 @@
-package com.network.c23v.config
+package com.network.app.config
 
-import com.network.c23v.actuator.FeaturesEndpoint
+import com.network.app.actuator.FeaturesEndpoint
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean

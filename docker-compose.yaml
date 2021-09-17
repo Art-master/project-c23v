@@ -13,7 +13,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=c23v
+      - POSTGRES_DB=app
 #    volumes:
 #      - pg_project:/var/lib/postgresql/data
 
@@ -27,6 +27,6 @@ services:
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=c23v
+      - POSTGRES_DB=app
       - POSTGRES_ADDR=postgres
       - POSTGRES_PORT=5432

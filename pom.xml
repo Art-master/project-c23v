@@ -178,7 +178,7 @@
     </pluginRepositories>
 
     <build>
-        <sourceDirectory>${project.basedir}/src/main/com/network/c23v</sourceDirectory>
+        <sourceDirectory>src/main/com/network/app</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test</testSourceDirectory>
         <plugins>
             <plugin>

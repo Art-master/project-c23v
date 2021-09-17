@@ -1,4 +1,4 @@
-package com.network.c23v.domain
+package com.network.app.domain
 
 import org.springframework.data.relational.core.mapping.Table
 import javax.persistence.Entity

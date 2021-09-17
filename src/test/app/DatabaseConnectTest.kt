@@ -1,7 +1,6 @@
-package com.network.c23v
+package com.network.app
 
-import com.network.c23v.config.R2DBCConfig
-import com.network.c23v.repository.UserRepository
+import com.network.app.repository.UserRepository
 import io.r2dbc.spi.ConnectionFactory
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -17,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 
 @RunWith(SpringRunner::class)
-@EnableR2dbcRepositories("com.network.c23v.repository")
+@EnableR2dbcRepositories("com.network.app.repository")
 @EnableAutoConfiguration
 @SpringBootTest(classes = [Application::class], webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 //@DataR2dbcTest

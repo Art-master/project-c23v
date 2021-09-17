@@ -1,8 +1,7 @@
-package com.network.c23v.controllers
+package com.network.app.controllers
 
-import com.network.c23v.domain.User
-import com.network.c23v.repository.UserRepository
-import org.springframework.http.ResponseEntity
+import com.network.app.domain.User
+import com.network.app.repository.UserRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
