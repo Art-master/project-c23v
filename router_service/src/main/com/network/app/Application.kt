@@ -11,7 +11,7 @@ import reactor.netty.DisposableServer
 @EnableTransactionManagement
 @PropertySource(value = ["classpath:application.properties"], ignoreResourceNotFound = true)
 @EnableR2dbcRepositories("com.network.app.repository")
-@EntityScan("com.network.app.domain")
+@EntityScan("com.network.app.entities")
 @ComponentScan("com.network.app")
 class Application {
 

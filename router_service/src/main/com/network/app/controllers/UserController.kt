@@ -1,6 +1,6 @@
 package com.network.app.controllers
 
-import com.network.app.domain.User
+import com.network.app.entities.User
 import com.network.app.repository.UserRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

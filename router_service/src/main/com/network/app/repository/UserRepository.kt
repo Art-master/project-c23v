@@ -1,6 +1,6 @@
 package com.network.app.repository
 
-import com.network.app.domain.User
+import com.network.app.entities.User
 import org.springframework.data.r2dbc.repository.Query
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.stereotype.Repository
