@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
 @Service
-class GreetService {
+class UserService {
+
     @PreAuthorize("hasRole('ADMIN')")
     fun greet(): Mono<String> {
         return Mono.just("Hello from service!")
