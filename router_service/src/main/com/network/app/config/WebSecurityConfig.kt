@@ -18,28 +18,26 @@ import org.springframework.security.web.server.SecurityWebFilterChain
 @EnableReactiveMethodSecurity
 class WebSecurityConfig {
 
-    @Value("\${server.custom.enableSecurity:true}")
+    @Value("\${server.custom.security:true}")
     private val isSecurityEnabled = true
 
     @Throws(Exception::class)
     @Bean
     open fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain? {
-        if (isSecurityEnabled) {
-            return http.authorizeExchange()
+        return if (isSecurityEnabled) {
+            http.authorizeExchange()
                 .pathMatchers("/admin")
                 .hasAuthority("ROLE_ADMIN")
-                .matchers(EndpointRequest.to(FeaturesEndpoint::class.java))
-                .permitAll()
-                .anyExchange()
-                .authenticated()
+                .pathMatchers("/actuator/**").permitAll()
+                .matchers(EndpointRequest.to(FeaturesEndpoint::class.java)).permitAll()
+                .anyExchange().authenticated()
                 .and()
                 .formLogin()
                 .and()
-                .csrf()
-                .disable()
+                .csrf().disable()
                 .build()
 
-        } else return http.authorizeExchange().anyExchange().permitAll().and().build()
+        } else http.authorizeExchange().anyExchange().permitAll().and().build()
     }
 
     @Bean

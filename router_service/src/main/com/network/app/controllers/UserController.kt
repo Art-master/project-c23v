@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 class UserController(val userRepository: UserRepository) {
 
     @GetMapping("/{id}")
     fun findOne(@PathVariable id: Long): Mono<User> {
-        return userRepository.findOne(id)
+        //return userRepository.findOne(id)
+        return Mono.just(User())
     }
 
 }

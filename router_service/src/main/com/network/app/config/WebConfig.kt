@@ -1,6 +1,10 @@
 package com.network.app.config
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.actuate.audit.AuditEventRepository
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -26,5 +30,15 @@ class WebConfig {
         val adapter = ReactorHttpHandlerAdapter(handler)
         val httpServer = HttpServer.create().host(host).port(port)
         return httpServer.handle(adapter).bindNow()
+    }
+
+    @Bean
+    fun httpTraceRepository(): HttpTraceRepository? {
+        return InMemoryHttpTraceRepository()
+    }
+
+    @Bean
+    fun auditEventRepository(): AuditEventRepository? {
+        return InMemoryAuditEventRepository()
     }
 }
