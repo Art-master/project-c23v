@@ -199,6 +199,7 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
+                                <!--add domain module code in the build-->
                                 <source>../domain/src/main/kotlin/app/domain</source>
                                 <source>src/main/com/network/app</source>
                             </sourceDirs>
