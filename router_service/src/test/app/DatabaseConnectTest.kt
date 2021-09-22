@@ -1,5 +1,6 @@
-package com.network.app
+package app
 
+import com.network.app.Application
 import com.network.app.repository.UserRepository
 import io.r2dbc.spi.ConnectionFactory
 import org.junit.Test

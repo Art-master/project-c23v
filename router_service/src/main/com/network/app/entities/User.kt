@@ -20,8 +20,8 @@ class User : BaseUser() {
     @Column(name = UserSchema.LAST_NAME)
     override var lastName: String = ""
 
-    @Column(name = UserSchema.PHONE_NUMBER)
-    override var phoneNumber: Int = 0
+    @Column(unique = true, name = UserSchema.PHONE_NUMBER)
+    override var phoneNumber: Long = 0
 
     @Column(name = UserSchema.FRIENDS_IDS)
     @ElementCollection
