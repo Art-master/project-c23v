@@ -1,4 +1,4 @@
-package services
+package com.network.app.services
 
 import com.network.app.entities.User
 import com.network.app.repository.UserRepository
