@@ -2,15 +2,13 @@ package com.network.app.services
 
 import com.network.app.entities.User
 import com.network.app.repository.UserRepository
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 
 @Service
 class UserService(val userRepository: UserRepository) {
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     fun initTestUsers(usersCount: Int) {
 
         val users = MutableList(usersCount) {
@@ -20,18 +18,18 @@ class UserService(val userRepository: UserRepository) {
             }
         }
 
-        with(userRepository) {
-            saveAll(users)
-                .map { it.id }
-                .collect(Collectors.toList())
-                .subscribe {
-                    val mainUser = User().apply {
-                         name = "Admin"
-                        friendsIds = it
-                    }
-                    userRepository.save(mainUser)
+        userRepository.save(User())
+
+/*        userRepository.saveAll(users)
+            .map { it.id }
+            .collect(Collectors.toList())
+            .subscribe {
+                val mainUser = User().apply {
+                    name = "Admin"
+                    friendsIds = it
                 }
-                .dispose()
-        }
+                userRepository.save(mainUser)
+            }
+            .dispose()*/
     }
 }
