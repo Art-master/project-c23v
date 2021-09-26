@@ -1,8 +1,10 @@
 package com.network.app.config
 
-import io.r2dbc.postgresql.PostgresqlConnectionConfiguration
-import io.r2dbc.postgresql.PostgresqlConnectionFactory
+import io.r2dbc.pool.PoolingConnectionFactoryProvider
+import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
+import io.r2dbc.spi.ConnectionFactoryOptions
+import io.r2dbc.spi.Option
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -28,15 +30,30 @@ class R2DBCConfig(
 
     @Bean
     override fun connectionFactory(): ConnectionFactory {
-        return PostgresqlConnectionFactory(
-            PostgresqlConnectionConfiguration.builder()
+/*        val options = mapOf("errorResponseLogLevel" to "DEBUG")
+
+        val connectionFactory = PostgresqlConnectionFactory(
+            builder()
                 .host(host)
-                .port(port)
+                .port(5432) // optional, defaults to 5432
                 .username(username)
                 .password(password)
                 .schema(schema)
-                .database(database)
-                //.options(options)
+                .database(database) // optional
+                //.options(options) // optional
+                .build()
+        )
+        return connectionFactory*/
+        return ConnectionFactories.get(
+            ConnectionFactoryOptions.builder()
+                .option(ConnectionFactoryOptions.DRIVER, "postgresql")
+                .option(ConnectionFactoryOptions.HOST, host)
+                .option(ConnectionFactoryOptions.PORT, port)
+                .option(ConnectionFactoryOptions.USER, username)
+                .option(ConnectionFactoryOptions.PASSWORD, password)
+                .option(ConnectionFactoryOptions.DATABASE, database)
+                .option(PoolingConnectionFactoryProvider.MAX_SIZE, maxPoolSize.toInt())
+                .option(Option.valueOf("schema"), schema)
                 .build()
         )
     }
@@ -51,6 +68,7 @@ class R2DBCConfig(
         val initializer = ConnectionFactoryInitializer()
         initializer.setConnectionFactory(connectionFactory)
         val populator = CompositeDatabasePopulator()
+        //populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("schema.sql")))
         initializer.setDatabasePopulator(populator)
         return initializer
     }

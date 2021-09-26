@@ -4,7 +4,7 @@ package app.domain.entities
  * Basic abstract class for application User
  * NOTE: Each field must be abstract type of
  */
-abstract class BaseUser {
+interface BaseUser {
     abstract var id: Long
     abstract var name: String
     abstract var lastName: String

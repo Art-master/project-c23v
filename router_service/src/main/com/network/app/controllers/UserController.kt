@@ -14,7 +14,9 @@ class UserController(val userService: UserService) {
 
     @GetMapping("/{id}")
     fun findOne(@PathVariable id: Long): Mono<User> {
-        return userService.userRepository.findOne(id)
+        //return userService.userRepository.findOne(id)
+
+        return userService.userRepository.save(User())
     }
 
     @GetMapping("/init/{count}")
