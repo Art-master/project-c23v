@@ -1,4 +1,4 @@
-package com.network.app.config
+package com.gateway.app.config
 
 import io.r2dbc.pool.PoolingConnectionFactoryProvider
 import io.r2dbc.spi.ConnectionFactories
@@ -19,7 +19,7 @@ import org.springframework.transaction.ReactiveTransactionManager
 
 
 @Configuration
-@EnableR2dbcRepositories("com.network.app.repository")
+@EnableR2dbcRepositories("com.gateway.app.repository")
 class R2DBCConfig(
     @Value("\${spring.r2dbc.properties.host}") private val host: String,
     @Value("\${spring.r2dbc.properties.port}") private val port: Int,

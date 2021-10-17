@@ -1,7 +1,7 @@
-package com.network.app.controllers
+package com.gateway.app.controllers
 
-import com.network.app.entities.User
-import com.network.app.services.DebugService
+import com.gateway.app.entities.User
+import com.gateway.app.services.DebugService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping

@@ -1,4 +1,4 @@
-package com.network.app.actuator
+package com.gateway.app.actuator
 
 import org.springframework.boot.actuate.endpoint.annotation.*
 import org.springframework.stereotype.Component

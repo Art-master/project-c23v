@@ -1,7 +1,7 @@
-package com.network.app.entities
+package com.gateway.app.entities
 
 import app.domain.entities.BaseUser
-import com.network.app.schemas.UserSchema
+import com.gateway.app.schemas.UserSchema
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table

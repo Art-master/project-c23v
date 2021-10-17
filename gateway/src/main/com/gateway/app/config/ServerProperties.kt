@@ -1,4 +1,4 @@
-package com.network.app.config
+package com.gateway.app.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration

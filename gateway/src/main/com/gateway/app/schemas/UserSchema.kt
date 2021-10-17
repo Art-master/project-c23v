@@ -1,4 +1,4 @@
-package com.network.app.schemas
+package com.gateway.app.schemas
 
 object UserSchema {
     const val TABLE_NAME = "users"

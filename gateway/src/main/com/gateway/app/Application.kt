@@ -1,4 +1,4 @@
-package com.network.app
+package com.gateway.app
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 import reactor.netty.DisposableServer
 
 @EnableTransactionManagement
-@EntityScan(basePackages = ["com.network.app.entities"])
+@EntityScan(basePackages = ["com.gateway.app.entities"])
 @PropertySource(value = ["classpath:application.properties"], ignoreResourceNotFound = true)
-@SpringBootApplication(scanBasePackages = ["com.network.app"])
+@SpringBootApplication(scanBasePackages = ["com.gateway.app"])
 class Application
 
 fun main(args: Array<String>) {

@@ -1,6 +1,6 @@
-package com.network.app.config
+package com.gateway.app.config
 
-import com.network.app.actuator.FeaturesEndpoint
+import com.gateway.app.actuator.FeaturesEndpoint
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean

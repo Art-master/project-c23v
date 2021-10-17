@@ -1,4 +1,4 @@
-package com.network.app.config
+package com.gateway.app.config
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.actuate.audit.AuditEventRepository

@@ -1,7 +1,7 @@
-package com.network.app.services
+package com.gateway.app.services
 
-import com.network.app.entities.User
-import com.network.app.repository.UserRepository
+import com.gateway.app.entities.User
+import com.gateway.app.repository.UserRepository
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import java.util.stream.Collectors

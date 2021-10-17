@@ -1,6 +1,6 @@
-package com.network.app.services
+package com.gateway.app.services
 
-import com.network.app.repository.UserRepository
+import com.gateway.app.repository.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
