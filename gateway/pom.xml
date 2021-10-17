@@ -184,7 +184,7 @@
     </pluginRepositories>
 
     <build>
-        <sourceDirectory>src/main/com/gateway/app</sourceDirectory>
+        <sourceDirectory>src/main/com/network/app</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test</testSourceDirectory>
         <plugins>
             <plugin>
@@ -197,6 +197,13 @@
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <!--add domain module code in the build-->
+                                <source>../domain/src/main/kotlin/app/domain</source>
+                                <source>src/main/com/network/app</source>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>test-compile</id>
