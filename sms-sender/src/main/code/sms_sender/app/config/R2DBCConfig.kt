@@ -56,7 +56,7 @@ class R2DBCConfig(
         val initializer = ConnectionFactoryInitializer()
         initializer.setConnectionFactory(connectionFactory)
         val populator = CompositeDatabasePopulator()
-        populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("sql/initial_schema.sql")))
+        //populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("sql/initial_schema.sql")))
         initializer.setDatabasePopulator(populator)
         return initializer
     }

@@ -8,17 +8,10 @@
         <version>0.1.0</version>
     </parent>
     <groupId>com.network.c23v</groupId>
-    <artifactId>c23v</artifactId>
+    <artifactId>gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>c23v</name>
     <description>Server for c23v</description>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <kotlin.version>1.5.20</kotlin.version>
-        <!--<postgres.version>42.2.23</postgres.version>-->
-    </properties>
 
     <dependencyManagement>
         <dependencies>
