@@ -1,11 +1,10 @@
 package com.gateway.app
 
+import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
-import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.PropertySource
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import reactor.netty.DisposableServer
 
 @EnableTransactionManagement
 @EntityScan(basePackages = ["com.gateway.app.entities"])
@@ -14,7 +13,5 @@ import reactor.netty.DisposableServer
 class Application
 
 fun main(args: Array<String>) {
-    AnnotationConfigApplicationContext(Application::class.java).use { context ->
-        context.getBean(DisposableServer::class.java).onDispose().block()
-    }
+    SpringApplication.run(Application::class.java, *args)
 }
