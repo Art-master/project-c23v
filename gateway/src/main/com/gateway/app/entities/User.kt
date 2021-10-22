@@ -1,6 +1,6 @@
 package com.gateway.app.entities
 
-import app.domain.entities.BaseUser
+import app.domain.entities.IUser
 import com.gateway.app.schemas.UserSchema
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
@@ -30,7 +30,7 @@ class User(
 
     @Column(UserSchema.CONVERSATIONS_IDS)
     override var conversationsIds: List<Long> = emptyList()
-) : BaseUser {
+) : IUser {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
