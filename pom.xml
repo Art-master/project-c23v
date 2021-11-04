@@ -26,7 +26,6 @@
         <module>domain</module>
         <module>gateway</module>
         <module>sms-sender</module>
-        <module>mail-sender</module>
     </modules>
 
 </project>
