@@ -17,7 +17,7 @@ import org.springframework.transaction.ReactiveTransactionManager
 
 
 @Configuration
-@EnableR2dbcRepositories("com.gateway.app.repository")
+@EnableR2dbcRepositories("com.core.app.repository")
 class R2DBCConfig(
     @Value("\${spring.r2dbc.properties.host}") private val host: String,
     @Value("\${spring.r2dbc.properties.port}") private val port: Int,

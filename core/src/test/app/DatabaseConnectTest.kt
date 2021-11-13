@@ -1,6 +1,6 @@
 package app
 
-import com.gateway.app.Application
+import com.core.app.Application
 import com.core.app.repository.UserRepository
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 
 @RunWith(SpringRunner::class)
-@EnableR2dbcRepositories("com.gateway.app.repository")
+@EnableR2dbcRepositories("com.core.app.repository")
 @EnableAutoConfiguration
 @SpringBootTest(classes = [Application::class], webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 //@DataR2dbcTest
