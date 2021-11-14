@@ -9,4 +9,5 @@ object UserSchema {
     const val FRIENDS_IDS = "friends_ids"
     const val AVATAR_ID = "avatar_id"
     const val CONVERSATIONS_IDS = "conversations_ids"
+    const val LOCALE = "locale"
 }

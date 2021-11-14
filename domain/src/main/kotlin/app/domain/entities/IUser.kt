@@ -1,5 +1,7 @@
 package app.domain.entities
 
+import java.util.*
+
 /**
  * Basic interface for application User
  */
@@ -11,4 +13,5 @@ interface IUser {
     var friendsIds: List<Long>
     var avatarId: Long
     var conversationsIds: List<Long>
+    var locale: Locale
 }

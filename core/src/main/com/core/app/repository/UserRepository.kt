@@ -12,4 +12,7 @@ interface UserRepository : R2dbcRepository<User, Long> {
 
     @Query("SELECT * FROM ${UserSchema.TABLE_NAME} WHERE id=$1 LIMIT 1")
     fun findOne(id: Long): Mono<User>
+
+    //@Query("SELECT * FROM ${UserSchema.TABLE_NAME} WHERE id=$1 LIMIT 1")
+    fun existsByPhoneNumber(phoneNumber: Long): Boolean
 }
