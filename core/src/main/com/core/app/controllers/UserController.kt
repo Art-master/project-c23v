@@ -4,6 +4,7 @@ import app.domain.entities.IResponse
 import com.core.app.entities.User
 import com.core.app.services.UserService
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 import java.lang.Exception
@@ -15,7 +16,7 @@ import java.lang.RuntimeException
 class UserController(val userService: UserService) {
 
     @GetMapping("/{id}")
-    fun findOne(@PathVariable id: Long): Mono<User> {
+    fun findOne(@PathVariable id: Long, userDetails: UserDetails): Mono<User> {
         return userService.userRepository.findOne(id)
     }
 
