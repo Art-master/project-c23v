@@ -2,9 +2,10 @@ package com.core.app.controllers
 
 import app.domain.entities.IResponse
 import com.core.app.entities.User
+import com.core.app.extensions.getMessage
 import com.core.app.services.UserService
+import org.springframework.context.support.ResourceBundleMessageSource
 import org.springframework.http.HttpStatus
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 import java.lang.Exception
@@ -13,10 +14,11 @@ import java.lang.RuntimeException
 
 @RestController
 @RequestMapping("/user")
-class UserController(val userService: UserService) {
+class UserController(val messageSource : ResourceBundleMessageSource, val userService: UserService) {
 
     @GetMapping("/{id}")
-    fun findOne(@PathVariable id: Long, userDetails: UserDetails): Mono<User> {
+    fun findOne(@PathVariable id: Long): Mono<User> {
+        val message = messageSource.getMessage("test", "ru_RU")
         return userService.userRepository.findOne(id)
     }
 
