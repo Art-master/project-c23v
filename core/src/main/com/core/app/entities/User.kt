@@ -24,7 +24,7 @@ class User : IUser, IResponse, UserDetails {
     override var lastName: String = ""
 
     @Column(UserSchema.PHONE_NUMBER)
-    override var phoneNumber: Long = 0
+    override var phoneNumber: String = ""
 
     @Column(UserSchema.FRIENDS_IDS)
     override var friendsIds: List<Long> = emptyList()
@@ -43,12 +43,11 @@ class User : IUser, IResponse, UserDetails {
         TODO("Not yet implemented")
     }
 
-    override fun getPassword() = name
+    override fun getPassword() = ""
     override fun getUsername() = name
     override fun isAccountNonExpired() = true
     override fun isAccountNonLocked() = true
     override fun isCredentialsNonExpired() = true
     override fun isEnabled() = true
-
 
 }

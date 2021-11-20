@@ -31,15 +31,15 @@ class WebSecurityConfig {
                 .matchers(EndpointRequest.to(FeaturesEndpoint::class.java)).permitAll()
                 .anyExchange().authenticated()
                 .and()
-                .formLogin()
-                .and()
+                //.formLogin()
+                //.and()
                 .csrf().disable()
                 .build()
 
         } else http.authorizeExchange().anyExchange().permitAll().and().build()
     }
 
-    @Bean
+/*    @Bean
     open fun userDetailsService(): MapReactiveUserDetailsService? {
 
         val user = User
@@ -55,7 +55,7 @@ class WebSecurityConfig {
             .build()
 
         return MapReactiveUserDetailsService(user, admin)
-    }
+    }*/
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {

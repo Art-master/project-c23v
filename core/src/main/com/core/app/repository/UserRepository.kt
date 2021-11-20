@@ -17,4 +17,7 @@ interface UserRepository : R2dbcRepository<User, Long> {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE $PHONE_NUMBER=$1 LIMIT 1")
     fun findOneByPhoneNumber(phoneNumber: String): Mono<User>
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE $PHONE_NUMBER=$1 LIMIT 1")
+    fun existsByPhoneNumber(phoneNumber: String): Boolean
 }

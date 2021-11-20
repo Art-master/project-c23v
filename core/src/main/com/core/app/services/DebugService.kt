@@ -15,7 +15,7 @@ class DebugService(val userRepository: UserRepository) {
         val users = MutableList(usersCount) {
             User().apply {
                 name = "user $it"
-                phoneNumber = 791690571L + it
+                phoneNumber = "791690571$it"
             }
         }
 
