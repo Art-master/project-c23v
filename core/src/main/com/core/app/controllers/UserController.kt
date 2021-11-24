@@ -18,7 +18,7 @@ import java.lang.RuntimeException
 class UserController(val messageSource : ResourceBundleMessageSource, val userService: UserService) {
 
     @GetMapping("/{id}")
-    fun findOne(@PathVariable id: Long): Mono<User> {
+    fun findOne(@PathVariable id: Long, user: User): Mono<User> {
         val message = messageSource.getMessage("test", "ru_RU")
         return userService.userRepository.findOne(id)
     }
