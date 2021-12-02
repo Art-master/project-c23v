@@ -18,7 +18,7 @@ class AuthenticationController(val authenticationService: AuthenticationService)
     fun confirmPhoneNumber(
         @RequestParam(required = false, defaultValue = "ru_RU") lang: String = "ru_RU",
         @RequestParam("phone_number") phone: String
-    ) {
+    ): Mono<String> {
         return authenticationService.confirmPhoneNumber(phone)
     }
 
@@ -26,7 +26,7 @@ class AuthenticationController(val authenticationService: AuthenticationService)
     fun isPhoneNumberConfirmed(
         @RequestParam(required = false, defaultValue = "ru_RU") lang: String,
         @RequestParam("phone_number") phone: String
-    ): Mono<Boolean> {
+    ): Mono<String> {
         return authenticationService.isPhoneNumberConfirmed(phone)
     }
 }
