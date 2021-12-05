@@ -16,7 +16,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain
 class WebSecurityConfig {
 
     @Value("\${server.custom.security:true}")
-    private val isSecurityEnabled = true
+    private val isSecurityEnabled = false
 
     @Throws(Exception::class)
     @Bean
@@ -31,8 +31,7 @@ class WebSecurityConfig {
                 .matchers(EndpointRequest.to(FeaturesEndpoint::class.java)).permitAll()
                 .anyExchange().authenticated()
                 .and()
-                //.formLogin()
-                //.and()
+                .formLogin().disable()
                 .csrf().disable()
                 .build()
 

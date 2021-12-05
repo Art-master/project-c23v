@@ -22,6 +22,14 @@ class AuthenticationController(val authenticationService: AuthenticationService)
         return authenticationService.confirmPhoneNumber(phone)
     }
 
+    @PostMapping("confirm_phone_number2")
+    fun confirmPhoneNumber2(
+        @RequestParam(required = false, defaultValue = "ru_RU") lang: String = "ru_RU",
+        @RequestParam("phone_number") phone: String
+    ): Mono<String> {
+        return authenticationService.confirmPhoneNumberRest(phone)
+    }
+
     @GetMapping("is_phone_number_confirmed")
     fun isPhoneNumberConfirmed(
         @RequestParam(required = false, defaultValue = "ru_RU") lang: String,

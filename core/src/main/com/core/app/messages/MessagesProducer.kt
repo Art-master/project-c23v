@@ -20,7 +20,7 @@ class MessagesProducer(private val bootstrapServers: String) {
     private fun initSender(): KafkaSender<String, String> {
         val props: MutableMap<String, Any> = HashMap()
         props[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServers
-        props[ProducerConfig.CLIENT_ID_CONFIG] = "sample-producer"
+        props[ProducerConfig.CLIENT_ID_CONFIG] = "telecom-producer"
         props[ProducerConfig.ACKS_CONFIG] = "all"
         props[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
         props[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java

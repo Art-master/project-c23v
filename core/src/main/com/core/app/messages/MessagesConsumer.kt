@@ -2,7 +2,6 @@ package com.core.app.messages
 
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.kafka.common.serialization.StringSerializer
 import org.slf4j.LoggerFactory
 import reactor.core.publisher.Flux
 import reactor.kafka.receiver.KafkaReceiver
@@ -19,9 +18,9 @@ class MessagesConsumer(private val bootstrapServers: String) {
     private fun initReceiverOptions(): ReceiverOptions<String, String> {
         val props: MutableMap<String, Any> = HashMap()
         props[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServers
-        props[ConsumerConfig.CLIENT_ID_CONFIG] = "sample-consumer"
+        props[ConsumerConfig.CLIENT_ID_CONFIG] = "core-consumer"
         props[ConsumerConfig.GROUP_ID_CONFIG] = "sample-group"
-        props[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
+        props[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
         props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
         props[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
 
