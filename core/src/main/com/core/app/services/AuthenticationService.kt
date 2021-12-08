@@ -1,5 +1,6 @@
 package com.core.app.services
 
+import com.core.app.messages.Message
 import com.core.app.messages.MessagesConsumer
 import com.core.app.messages.MessagesProducer
 import org.slf4j.LoggerFactory
@@ -39,9 +40,9 @@ class AuthenticationService(val messageSource: ResourceBundleMessageSource) {
 
     fun confirmPhoneNumber(phoneNumber: String): Mono<String> {
         return producer
-            .sendMessage("test", phoneNumber)
+            .sendMessage<Message>("test", phoneNumber)
             .flatMap {
-                consumer.consumeMessages("test2")
+                consumer.consumeMessages<Message>("test2")
             }
             .toMono().flatMap {
                 logger.debug("message received" + it.value())

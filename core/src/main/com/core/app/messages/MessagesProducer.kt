@@ -1,5 +1,6 @@
 package com.core.app.messages
 
+import com.fasterxml.jackson.databind.JsonSerializer
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
@@ -17,18 +18,18 @@ class MessagesProducer(private val bootstrapServers: String) {
     private val sender = initSender()
     private val log: Logger = LoggerFactory.getLogger(MessagesProducer::class.java.name)
 
-    private fun initSender(): KafkaSender<String, String> {
+    private fun initSender(): KafkaSender<String, Message> {
         val props: MutableMap<String, Any> = HashMap()
         props[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServers
         props[ProducerConfig.CLIENT_ID_CONFIG] = "telecom-producer"
         props[ProducerConfig.ACKS_CONFIG] = "all"
         props[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
-        props[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
-        val senderOptions = SenderOptions.create<String, String>(props)
+        props[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = JsonSerializer::class.java
+        val senderOptions = SenderOptions.create<String, Message>(props)
         return KafkaSender.create(senderOptions)
     }
 
-    fun sendMessage(topic: String, value: String, count: Int = 1): Flux<SenderResult<String>> {
+    fun <E : Message> sendMessage(topic: String, value: E, count: Int = 1): Flux<SenderResult<String>> {
         return sender.send(Flux.range(1, count)
             .map { i ->
                 SenderRecord.create(ProducerRecord(topic, i.toString(), value), i.toString())
