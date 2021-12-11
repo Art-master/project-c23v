@@ -1,6 +1,6 @@
 package com.core.app.services
 
-import app.domain.entities.IResponse
+import c23v.domain.entities.Message
 import com.core.app.entities.User
 import com.core.app.errors.ProjectException
 import com.core.app.repository.UserRepository
@@ -15,7 +15,7 @@ class UserService(
     val source: ResourceBundleMessageSource
 ) {
 
-    fun register(user: User): Mono<out IResponse> {
+    fun register(user: User): Mono<out Message> {
         if (userRepository.existsByPhoneNumber(user.phoneNumber)) {
             val message = source.getMessage("", arrayOf(), user.locale)
             return Mono.error(ProjectException(message))

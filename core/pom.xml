@@ -63,6 +63,11 @@
             <artifactId>spring-session-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
             <groupId>io.projectreactor.kafka</groupId>
             <artifactId>reactor-kafka</artifactId>
             <version>1.3.7</version>
@@ -175,6 +180,12 @@
 
         <!--modules-->
         <dependency>
+            <groupId>c23v.common</groupId>
+            <artifactId>domain</artifactId>
+            <version>1.0.6</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.app.domain</groupId>
             <artifactId>domain</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -193,6 +204,17 @@
         <pluginRepository>
             <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>kotlin-bintray</id>
+            <name>Kotlin Bintray</name>
+            <url>http://dl.bintray.com/kotlin/kotlin-dev</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 

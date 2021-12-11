@@ -1,6 +1,7 @@
 package com.core.app.messages
 
-import com.fasterxml.jackson.databind.JsonDeserializer
+import c23v.domain.entities.Message
+import org.springframework.kafka.support.serializer.JsonDeserializer
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.slf4j.LoggerFactory
@@ -24,11 +25,14 @@ class MessagesConsumer(private val bootstrapServers: String) {
         props[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
         props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = JsonDeserializer::class.java
         props[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
+        //props[JsonDeserializer.VALUE_DEFAULT_TYPE] = "c23v.domain.entities.Message"
+        //props[JsonDeserializer.USE_TYPE_INFO_HEADERS] = false
+        props[JsonDeserializer.TRUSTED_PACKAGES] = "*"
 
         return ReceiverOptions.create(props)
     }
 
-    fun <E : Message> consumeMessages(topic: String): Flux<ReceiverRecord<String, Message>> {
+    fun consumeMessages(topic: String): Flux<ReceiverRecord<String, Message>> {
         val options: ReceiverOptions<String, Message> = receiverOptions.subscription(Collections.singleton(topic))
             .addAssignListener { partitions -> logger.debug("onPartitionsAssigned {}", partitions) }
             .addRevokeListener { partitions -> logger.debug("onPartitionsRevoked {}", partitions) }

@@ -1,7 +1,7 @@
 package com.core.app.entities
 
 import app.domain.entities.IUser
-import app.domain.entities.IResponse
+import c23v.domain.entities.Message
 import com.core.app.schemas.UserSchema
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import java.util.*
 
 @Table(UserSchema.TABLE_NAME)
-class User : IUser, IResponse, UserDetails {
+class User : IUser, Message, UserDetails {
 
     @Id
     @Column(UserSchema.ID)

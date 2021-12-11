@@ -1,6 +1,6 @@
 package com.core.app.controllers
 
-import app.domain.entities.IResponse
+import c23v.domain.entities.Message
 import com.core.app.entities.User
 import com.core.app.extensions.getMessage
 import com.core.app.services.UserService
@@ -25,7 +25,7 @@ class UserController(val messageSource : ResourceBundleMessageSource, val userSe
 
     @PostMapping("/registration")
     @ResponseStatus(code = HttpStatus.CREATED)
-    fun register(@RequestBody userCredentials: User): Mono<out IResponse> {
+    fun register(@RequestBody userCredentials: User): Mono<out Message> {
         return userService.register(userCredentials)
     }
 
