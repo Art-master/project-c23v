@@ -1,23 +1,31 @@
-package com.core.app.messages
+package com.core.app.services
 
 import c23v.domain.entities.Message
 import org.springframework.kafka.support.serializer.JsonDeserializer
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.kafka.receiver.KafkaReceiver
 import reactor.kafka.receiver.ReceiverOptions
 import reactor.kafka.receiver.ReceiverRecord
 import java.util.*
+import javax.annotation.PostConstruct
 
-class MessagesConsumer(private val bootstrapServers: String) {
+@Service("consumer")
+class MessagesConsumerService() {
 
-    private val logger = LoggerFactory.getLogger(MessagesConsumer::class.java.name)
+    @Value("\${BOOTSTRAP_SERVERS}")
+    private lateinit var bootstrapServers: String
 
-    private var receiverOptions = initReceiverOptions()
+    private val logger = LoggerFactory.getLogger(MessagesConsumerService::class.java.name)
 
-    private fun initReceiverOptions(): ReceiverOptions<String, Message> {
+    private lateinit var receiverOptions: ReceiverOptions<String, Message>
+
+    @PostConstruct
+    private fun initReceiverOptions() {
         val props: MutableMap<String, Any> = HashMap()
         props[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServers
         props[ConsumerConfig.CLIENT_ID_CONFIG] = "core-consumer"
@@ -29,7 +37,7 @@ class MessagesConsumer(private val bootstrapServers: String) {
         //props[JsonDeserializer.USE_TYPE_INFO_HEADERS] = false
         props[JsonDeserializer.TRUSTED_PACKAGES] = "*"
 
-        return ReceiverOptions.create(props)
+        receiverOptions = ReceiverOptions.create(props)
     }
 
     fun consumeMessages(topic: String): Flux<ReceiverRecord<String, Message>> {
