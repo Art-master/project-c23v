@@ -42,14 +42,18 @@ class MessagesProducerService {
         sender = KafkaSender.create(senderOptions)
     }
 
-    fun sendMessage(topic: String, value: Message, count: Int = 1): Flux<SenderResult<String>> {
+    fun sendMessage(topic: String, key: String?, value: Message, count: Int = 1): Flux<SenderResult<String>> {
         return sender.send(Flux.range(1, count)
             .map { i ->
-                SenderRecord.create(ProducerRecord(topic, i.toString(), value), i.toString())
+                SenderRecord.create(ProducerRecord(topic, key ?: i.toString(), value), i.toString())
             })
             .doOnError { e: Throwable? ->
                 log.error("Send failed", e)
             }
+    }
+
+    fun sendMessage(topic: String, value: Message, count: Int = 1): Flux<SenderResult<String>> {
+        return sendMessage(topic, null, value, count)
     }
 
     fun close() {
