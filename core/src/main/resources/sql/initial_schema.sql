@@ -5,10 +5,11 @@ create table if not exists users
             primary key,
     name                varchar   not null,
     "last_name"         varchar   not null,
-    "phone_number"      serial    not null,
+    "phone_number"      varchar   not null,
     "friends_ids"       bigint[]  not null,
     "avatar_id"         varchar   not null,
-    "conversations_ids" bigint[]  not null
+    "conversations_ids" bigint[]  not null,
+    "lang"              varchar  not null
 );
 
 alter table users

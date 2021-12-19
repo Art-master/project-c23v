@@ -17,8 +17,8 @@ class UserService(
 
     fun register(user: User): Mono<out Message> {
         if (userRepository.existsByPhoneNumber(user.phoneNumber)) {
-            val message = source.getMessage("", arrayOf(), user.locale)
-            return Mono.error(ProjectException(message))
+            //val message = source.getMessage("", arrayOf(), user.locale)
+            //return Mono.error(ProjectException(message))
         }
 
         return userRepository.save(user)

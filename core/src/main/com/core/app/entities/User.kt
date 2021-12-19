@@ -7,8 +7,10 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.*
+
 
 @Table(UserSchema.TABLE_NAME)
 class User : IUser, Message, UserDetails {
@@ -35,13 +37,26 @@ class User : IUser, Message, UserDetails {
     @Column(UserSchema.CONVERSATIONS_IDS)
     override var conversationsIds: List<Long> = emptyList()
 
-    @Column(UserSchema.LOCALE)
-    override var locale: Locale = Locale.getDefault()
+    @Column(UserSchema.LANG)
+    override var lang: String = Locale.getDefault().toLanguageTag()
+
+   // private val authorities: List<String> = emptyList()
 
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        TODO("Not yet implemented")
+        return mutableListOf()
     }
+
+/*    private fun getAuthorities(roles: Collection<Role>): Collection<GrantedAuthority>? {
+        val authorities: MutableList<GrantedAuthority> = ArrayList()
+        for (role in roles) {
+            authorities.add(SimpleGrantedAuthority(role.getName()))
+            role.getPrivileges().stream()
+                .map { p -> SimpleGrantedAuthority(p.getName()) }
+                .forEach(authorities::add)
+        }
+        return authorities
+    }*/
 
     override fun getPassword() = ""
     override fun getUsername() = name

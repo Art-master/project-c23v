@@ -5,6 +5,7 @@ import c23v.domain.entities.schemas.PhoneConfirmationData
 import c23v.domain.entities.topics.*
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.DependsOn
 import org.springframework.context.support.ResourceBundleMessageSource
 import org.springframework.http.HttpStatus
@@ -18,7 +19,7 @@ import kotlin.random.Random
 @DependsOn("producer", "consumer")
 @Service
 class AuthenticationService(
-    private val messageSource: ResourceBundleMessageSource,
+    //private val messageSource: ResourceBundleMessageSource, //todo not autowired in WebSecurity config
     private var producer: MessagesProducerService,
     private val consumer: MessagesConsumerService
 ) {
@@ -43,11 +44,11 @@ class AuthenticationService(
             .joinToString("")
     }
 
-    private fun getRandomKey() = getRandomString(15)
+    private fun getRandomKey(phoneNumber: String) = phoneNumber + "_" + getRandomString(15)
 
     fun confirmPhoneNumber(phoneNumber: String): Mono<String> {
         val requestData = PhoneConfirmationData(callPhone = phoneNumber)
-        val msgKey = getRandomKey()
+        val msgKey = getRandomKey(phoneNumber)
 
         return producer
             .sendMessage(TelecomNumbersForConfirmationTopic.NAME, msgKey, requestData)
@@ -82,7 +83,7 @@ class AuthenticationService(
 
     fun isPhoneNumberConfirmed(phoneNumber: String): Mono<String> {
         val requestData = PhoneConfirmationData(callPhone = phoneNumber)
-        val msgKey = getRandomKey()
+        val msgKey = getRandomKey(phoneNumber)
 
         return producer
             .sendMessage(TelecomConfirmationsTopic.NAME, msgKey, requestData)

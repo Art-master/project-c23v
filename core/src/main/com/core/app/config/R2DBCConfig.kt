@@ -8,11 +8,13 @@ import io.r2dbc.spi.Option
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.io.ClassPathResource
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.r2dbc.connection.R2dbcTransactionManager
 import org.springframework.r2dbc.connection.init.CompositeDatabasePopulator
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer
+import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator
 import org.springframework.transaction.ReactiveTransactionManager
 
 
@@ -54,7 +56,7 @@ class R2DBCConfig(
         val initializer = ConnectionFactoryInitializer()
         initializer.setConnectionFactory(connectionFactory)
         val populator = CompositeDatabasePopulator()
-        //populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("/sql/initial_schema.sql")))
+        populator.addPopulators(ResourceDatabasePopulator(ClassPathResource("/sql/initial_schema.sql")))
         initializer.setDatabasePopulator(populator)
         return initializer
     }

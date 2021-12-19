@@ -4,7 +4,7 @@ import com.core.app.entities.User
 import com.core.app.repository.UserRepository
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
-import java.util.stream.Collectors
+import reactor.kotlin.core.publisher.toMono
 
 @Service
 class DebugService(val userRepository: UserRepository) {
@@ -19,22 +19,20 @@ class DebugService(val userRepository: UserRepository) {
             }
         }
 
-        val usersData = userRepository.saveAll(users)
-
-        with(userRepository) {
-            usersData
-                .map { it.id }
-                .collect(Collectors.toList())
-                .subscribe {
-                    val mainUser = User().apply {
-                        name = "Admin"
-                        friendsIds = it
-                    }
-                    save(mainUser)
+        return userRepository
+            .saveAll(users)
+            .collectList()
+            .toMono()
+            .doOnNext { user ->
+                val mainUser = User().apply {
+                    name = "Admin"
+                    phoneNumber = "+79263445673"
+                    friendsIds = user.map { it.id }
                 }
-                .dispose()
-        }
-
-        return usersData
+                userRepository.save(mainUser).subscribe()
+            }
+            .flatMapMany {
+                Flux.fromStream(it.stream())
+            }
     }
 }

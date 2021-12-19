@@ -13,5 +13,5 @@ interface IUser {
     var friendsIds: List<Long>
     var avatarId: Long
     var conversationsIds: List<Long>
-    var locale: Locale
+    var lang: String
 }
