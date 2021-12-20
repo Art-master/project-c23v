@@ -4,32 +4,30 @@ import actuator.FeaturesEndpoint
 import com.core.app.entities.User
 import com.core.app.services.AuthenticationService
 import com.core.app.services.CustomUserDetailsService
+import com.core.app.services.UserService
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.DependsOn
 import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
 import reactor.core.publisher.Mono
+import reactor.kotlin.core.publisher.switchIfEmpty
 import java.lang.RuntimeException
 
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-//@DependsOn("repository", "services")
-//@Import(CustomUserDetailsService::class, AuthenticationService::class)
-@ComponentScan("com.core.app.services")
 class WebSecurityConfig(
+    private val userService: UserService,
     private val userDetailsService: CustomUserDetailsService,
     private val authenticationService: AuthenticationService
 ) {
@@ -71,7 +69,7 @@ class WebSecurityConfig(
                     .flatMap {
                         if (it == "401") { // number confirmed
                             checkUser(authentication)
-                        } else Mono.empty()
+                        } else Mono.just(authentication)
                     }
             } catch (e: UsernameNotFoundException) {
                 Mono.error(e)
@@ -81,14 +79,15 @@ class WebSecurityConfig(
 
     private fun checkUser(authentication: Authentication): Mono<Authentication> {
         return userDetailsService.findByUsername(authentication.principal as String)
-            .defaultIfEmpty(User())
+            .switchIfEmpty {
+                val user = User().apply {
+                    phoneNumber = authentication.principal.toString()
+                }
+                userService.create(user).cast(UserDetails::class.java)
+            }
             .cast(User::class.java)
             .flatMap {
-                if (it.phoneNumber.isEmpty()) {
-                    Mono.just(authentication)
-                } else {
-                    Mono.just(UsernamePasswordAuthenticationToken(it.phoneNumber, "", it.authorities))
-                }
+                Mono.just(UsernamePasswordAuthenticationToken(it.phoneNumber, "", it.authorities))
             }
     }
 

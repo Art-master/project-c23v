@@ -11,16 +11,10 @@ import reactor.core.publisher.Mono
 
 @Service
 class UserService(
-    val userRepository: UserRepository,
-    val source: ResourceBundleMessageSource
+    val userRepository: UserRepository
 ) {
 
-    fun register(user: User): Mono<out Message> {
-        if (userRepository.existsByPhoneNumber(user.phoneNumber)) {
-            //val message = source.getMessage("", arrayOf(), user.locale)
-            //return Mono.error(ProjectException(message))
-        }
-
+    fun create(user: User): Mono<User> {
         return userRepository.save(user)
     }
 
